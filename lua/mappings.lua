@@ -60,3 +60,66 @@ map("n", "<leader>gr", function()
     include_declaration = false,   -- omit the declaration itself if you want
   })
 end, { desc = "Go to LSP References" })
+
+-- Web development specific keymaps ----------------------------------------
+
+-- Format document
+map("n", "<leader>f", function()
+  require("conform").format({ async = true, lsp_fallback = true })
+end, { desc = "Format document" })
+
+-- C# specific keymaps
+map("n", "<leader>cu", function()
+  vim.lsp.buf.execute_command({
+    command = "omnisharp/findusages",
+    arguments = { vim.uri_from_bufnr(0), vim.lsp.util.make_position_params().position }
+  })
+end, { desc = "C# Find Usages" })
+
+map("n", "<leader>cR", function()
+  vim.lsp.buf.execute_command({
+    command = "omnisharp/rename",
+    arguments = { vim.uri_from_bufnr(0), vim.lsp.util.make_position_params().position }
+  })
+end, { desc = "C# Rename" })
+
+-- Package.json version management (if package-info is loaded)
+map("n", "<leader>ns", function()
+  if pcall(require, "package-info") then
+    require("package-info").show()
+  end
+end, { desc = "Show package versions" })
+
+map("n", "<leader>nc", function()
+  if pcall(require, "package-info") then
+    require("package-info").hide()
+  end
+end, { desc = "Hide package versions" })
+
+map("n", "<leader>nu", function()
+  if pcall(require, "package-info") then
+    require("package-info").update()
+  end
+end, { desc = "Update package" })
+
+map("n", "<leader>nd", function()
+  if pcall(require, "package-info") then
+    require("package-info").delete()
+  end
+end, { desc = "Delete package" })
+
+map("n", "<leader>ni", function()
+  if pcall(require, "package-info") then
+    require("package-info").install()
+  end
+end, { desc = "Install package" })
+
+map("n", "<leader>np", function()
+  if pcall(require, "package-info") then
+    require("package-info").change_version()
+  end
+end, { desc = "Change package version" })
+
+-- Emmet expand abbreviation
+map("i", "<C-e>", "<plug>(emmet-expand-abbr)", { desc = "Emmet expand" })
+map("n", "<C-e>", "<plug>(emmet-expand-abbr)", { desc = "Emmet expand" })

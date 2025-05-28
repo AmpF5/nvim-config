@@ -1,0 +1,262 @@
+return {}
+
+-- -- Web development & C#/Dotnet toolchain for NvChad (Lazy)
+-- return {
+--   ---------------------------------------------------------------------------
+--   -- 1. Make Mason grab LSP servers, formatters, and tools
+--   ---------------------------------------------------------------------------
+--   {
+--     "williamboman/mason.nvim",
+--     opts = function(_, opts)
+--       opts.ensure_installed = opts.ensure_installed or {}
+--       vim.list_extend(opts.ensure_installed, {
+--         -- C# / .NET
+--         "omnisharp",             -- C# LSP server
+--         "csharpier",            -- C# formatter
+--         "netcoredbg",           -- .NET debugger
+        
+--         -- Web languages
+--         "html-lsp",             -- HTML LSP
+--         "css-lsp",              -- CSS LSP
+--         "typescript-language-server", -- TypeScript/JavaScript LSP
+--         "eslint-lsp",           -- ESLint LSP
+--         "emmet-ls",             -- Emmet for HTML/CSS
+        
+--         -- Formatters
+--         "prettier",             -- HTML, CSS, JS, JSON formatter
+--         "prettierd",            -- Faster prettier daemon
+--         "eslint_d",             -- Faster ESLint daemon
+        
+--         -- Additional tools
+--         "js-debug-adapter",     -- JavaScript debugger
+--       })
+--     end,
+--   },
+--   {
+--     "williamboman/mason-lspconfig.nvim",
+--     opts = function(_, opts)
+--       opts.ensure_installed = opts.ensure_installed or {}
+--       vim.list_extend(opts.ensure_installed, {
+--         "omnisharp",
+--         "html",
+--         "cssls",
+--         "ts_ls",
+--         "eslint",
+--         "emmet_ls",
+--       })
+--     end,
+--   },
+
+--   ---------------------------------------------------------------------------
+--   -- 2. LSP configurations for web development
+--   ---------------------------------------------------------------------------
+--   {
+--     "neovim/nvim-lspconfig",
+--     ft = { "cs", "html", "css", "javascript", "typescript", "razor" },
+--     opts = {
+--       servers = {
+--         -- C# / OmniSharp configuration
+--         omnisharp = {
+--           cmd = { "omnisharp" },
+--           enable_import_completion = true,
+--           organize_imports_on_format = true,
+--           enable_roslyn_analyzers = true,
+--           root_dir = function(fname)
+--             return require("lspconfig/util").root_pattern("*.sln", "*.csproj", "omnisharp.json", "function.json")(fname)
+--               or require("lspconfig/util").find_git_ancestor(fname)
+--           end,
+--           settings = {
+--             FormattingOptions = {
+--               EnableEditorConfigSupport = true,
+--               OrganizeImports = true,
+--             },
+--             MsBuild = {
+--               LoadProjectsOnDemand = false,
+--             },
+--             RoslynExtensionsOptions = {
+--               EnableAnalyzersSupport = true,
+--               EnableImportCompletion = true,
+--             },
+--           },
+--         },
+
+--         -- HTML language server
+--         html = {
+--           settings = {
+--             html = {
+--               format = {
+--                 templating = true,
+--                 wrapLineLength = 120,
+--                 wrapAttributes = "auto",
+--               },
+--               hover = {
+--                 documentation = true,
+--                 references = true,
+--               },
+--             },
+--           },
+--         },
+
+--         -- CSS language server
+--         cssls = {
+--           settings = {
+--             css = {
+--               validate = true,
+--               lint = {
+--                 unknownAtRules = "ignore",
+--               },
+--             },
+--             scss = {
+--               validate = true,
+--               lint = {
+--                 unknownAtRules = "ignore",
+--               },
+--             },
+--             less = {
+--               validate = true,
+--               lint = {
+--                 unknownAtRules = "ignore",
+--               },
+--             },
+--           },
+--         },
+
+--         -- TypeScript/JavaScript language server
+--         ts_ls = {
+--           settings = {
+--             typescript = {
+--               inlayHints = {
+--                 includeInlayParameterNameHints = "all",
+--                 includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+--                 includeInlayFunctionParameterTypeHints = true,
+--                 includeInlayVariableTypeHints = true,
+--                 includeInlayPropertyDeclarationTypeHints = true,
+--                 includeInlayFunctionLikeReturnTypeHints = true,
+--                 includeInlayEnumMemberValueHints = true,
+--               },
+--             },
+--             javascript = {
+--               inlayHints = {
+--                 includeInlayParameterNameHints = "all",
+--                 includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+--                 includeInlayFunctionParameterTypeHints = true,
+--                 includeInlayVariableTypeHints = true,
+--                 includeInlayPropertyDeclarationTypeHints = true,
+--                 includeInlayFunctionLikeReturnTypeHints = true,
+--                 includeInlayEnumMemberValueHints = true,
+--               },
+--             },
+--           },
+--         },
+
+--         -- ESLint language server
+--         eslint = {
+--           settings = {
+--             workingDirectory = { mode = "auto" },
+--           },
+--         },
+
+--         -- Emmet language server
+--         emmet_ls = {
+--           filetypes = {
+--             "html",
+--             "css",
+--             "scss",
+--             "javascript",
+--             "typescript",
+--             "razor",
+--           },
+--         },
+--       },
+--     },
+--   },
+
+--   ---------------------------------------------------------------------------
+--   -- 3. Additional web development plugins
+--   ---------------------------------------------------------------------------
+--   {
+--     "nvim-treesitter/nvim-treesitter",
+--     opts = function(_, opts)
+--       opts.ensure_installed = opts.ensure_installed or {}
+--       vim.list_extend(opts.ensure_installed, {
+--         "c_sharp",
+--         "html",
+--         "css",
+--         "scss",
+--         "javascript",
+--         "typescript",
+--         "json",
+--         "tsx",
+--         "vue",
+--       })
+--     end,
+--   },
+
+--   -- Enhanced C# support
+--   {
+--     "Hoffs/omnisharp-extended-lsp.nvim",
+--     ft = { "cs" },
+--     dependencies = { "neovim/nvim-lspconfig" },
+--   },
+
+--   -- Razor syntax highlighting and support
+--   {
+--     "jlcrochet/vim-razor",
+--     ft = { "razor" },
+--   },
+
+--   -- Auto tag closing for HTML/JSX
+--   {
+--     "windwp/nvim-ts-autotag",
+--     ft = { "html", "javascript", "typescript", "jsx", "tsx", "vue", "xml", "razor" },
+--     dependencies = { "nvim-treesitter/nvim-treesitter" },
+--     config = function()
+--       require("nvim-ts-autotag").setup({
+--         opts = {
+--           enable_close = true,          -- Auto close tags
+--           enable_rename = true,         -- Auto rename pairs of tags
+--           enable_close_on_slash = false -- Auto close on trailing </
+--         },
+--       })
+--     end,
+--   },
+
+--   -- Better HTML/CSS/JS snippets
+--   {
+--     "mattn/emmet-vim",
+--     ft = { "html", "css", "javascript", "typescript", "jsx", "tsx", "vue", "razor" },
+--     config = function()
+--       vim.g.user_emmet_leader_key = "<C-e>"
+--       vim.g.user_emmet_settings = {
+--         razor = {
+--           extends = "html",
+--         },
+--       }
+--     end,
+--   },
+
+--   -- Package.json version lens
+--   {
+--     "vuki656/package-info.nvim",
+--     ft = { "json" },
+--     dependencies = { "MunifTanjim/nui.nvim" },
+--     config = function()
+--       require("package-info").setup({
+--         colors = {
+--           up_to_date = "#3C4048",   -- already up to date
+--           outdated = "#fc514e",     -- needs update
+--         },
+--         icons = {
+--           enable = true,
+--           style = {
+--             up_to_date = "|  ",      -- Icon for up to date dependencies
+--             outdated = "|  ",        -- Icon for outdated dependencies
+--           },
+--         },
+--         autostart = true,           -- Whether to autostart when opening package.json
+--         hide_up_to_date = false,    -- Hide up to date versions
+--         hide_unstable_versions = false, -- Hide unstable versions from version list
+--       })
+--     end,
+--   },
+-- }

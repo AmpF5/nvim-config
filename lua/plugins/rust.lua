@@ -1,26 +1,26 @@
 -- Rust toolchain & IDE goodies for NvChad (Lazy)
 return {
-  ---------------------------------------------------------------------------
-  -- 1. Make Mason grab rust-analyzer, CodeLLDB, etc.
-  ---------------------------------------------------------------------------
-  {
-    "williamboman/mason.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, {
-        "rust_analyzer", -- LSP server
-        "codelldb",      -- Debug adapter
-        "stylua",        -- Lua formatter (handy if you hack on NvChad)
-      })
-    end,
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    opts = function(_, opts)
-      opts.ensure_installed = opts.ensure_installed or {}
-      vim.list_extend(opts.ensure_installed, { "rust_analyzer" })
-    end,
-  },
+  -- ---------------------------------------------------------------------------
+  -- -- 1. Make Mason grab rust-analyzer, CodeLLDB, etc.
+  -- ---------------------------------------------------------------------------
+  -- {
+  --   "williamboman/mason.nvim",
+  --   opts = function(_, opts)
+  --     opts.ensure_installed = opts.ensure_installed or {}
+  --     vim.list_extend(opts.ensure_installed, {
+  --       "rust_analyzer", -- LSP server
+  --       "codelldb",      -- Debug adapter
+  --       "stylua",        -- Lua formatter (handy if you hack on NvChad)
+  --     })
+  --   end,
+  -- },
+  -- {
+  --   "williamboman/mason-lspconfig.nvim",
+  --   opts = function(_, opts)
+  --     opts.ensure_installed = opts.ensure_installed or {}
+  --     vim.list_extend(opts.ensure_installed, { "rust_analyzer" })
+  --   end,
+  -- },
 
   ---------------------------------------------------------------------------
   -- 2. rust-analyzer settings
