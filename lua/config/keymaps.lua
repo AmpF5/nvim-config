@@ -1,5 +1,3 @@
-require "nvchad.mappings"
-
 -- ~/.config/nvim/lua/custom/mappings.lua
 
 -- shorthand

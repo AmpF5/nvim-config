@@ -8,7 +8,7 @@ return {
         "rust-analyzer",
         
         -- C# / .NET
-        "omnisharp",            -- C# LSP server
+        -- "omnisharp",            -- C# LSP server
         "csharpier",            -- C# formatter
         "netcoredbg",           -- .NET debugger
         
@@ -37,7 +37,7 @@ return {
     opts = {
       ensure_installed = {
         "rust-analyzer",
-        "omnisharp",
+        -- "omnisharp",
         "html",
         "cssls",
         "typescript-language-server",
@@ -53,19 +53,6 @@ return {
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     dependencies = { "williamboman/mason.nvim" },
-    opts = {
-      ensure_installed = {
-        "csharpier",
-        "netcoredbg",
-        "prettier",
-        "prettierd",
-        "eslint_d",
-        "stylua",
-        "codelldb",
-        "js-debug-adapter",
-      },
-      -- optionally run installs on startup:
       run_on_start = true,
     },
-  },
-}
+  }
