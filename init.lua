@@ -35,3 +35,10 @@ require "autocmds"
 vim.schedule(function()
   require "mappings"
 end)
+
+vim.cmd [[
+  highlight Normal         ctermbg=NONE guibg=NONE
+  highlight NormalNC       ctermbg=NONE guibg=NONE
+  highlight SignColumn     ctermbg=NONE guibg=NONE
+  highlight EndOfBuffer    ctermbg=NONE guibg=NONE
+]]
