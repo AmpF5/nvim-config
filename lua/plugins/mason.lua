@@ -34,17 +34,7 @@ return {
   {
     "williamboman/mason-lspconfig.nvim",
     dependencies = { "williamboman/mason.nvim" },
-    opts = {
-      ensure_installed = {
-        "rust-analyzer",
-        -- "omnisharp",
-        "html",
-        "cssls",
-        "typescript-language-server",
-        "eslint-lsp",
-        "emmet_ls",
-      },
-    },
+    opts = {},
   },
   {
     "neovim/nvim-lspconfig",
