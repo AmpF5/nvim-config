@@ -52,3 +52,11 @@ map("n", "<leader>ih", function()
   -- flip the state
   vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
 end, { desc = "Toggle inlay hints" })
+
+-- Toggle LSP references with telescope
+map("n", "<leader>gr", function()
+  require("telescope.builtin").lsp_references({
+    prompt_title = "LSP References",
+    include_declaration = false,   -- omit the declaration itself if you want
+  })
+end, { desc = "Go to LSP References" })
