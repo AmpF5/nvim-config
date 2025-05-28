@@ -36,7 +36,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 lspconfig.omnisharp.setup({
   on_attach = on_attach,
   capabilities = capabilities,
-  cmd = { "omnisharp" },
+  cmd = { 
+    "dotnet", 
+    vim.fn.stdpath("data") .. "/mason/packages/omnisharp/OmniSharp.dll",
+    "--languageserver",
+    "--hostPID", tostring(vim.fn.getpid())
+  },
   enable_import_completion = true,
   organize_imports_on_format = true,
   enable_roslyn_analyzers = true,

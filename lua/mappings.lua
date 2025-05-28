@@ -119,7 +119,3 @@ map("n", "<leader>np", function()
     require("package-info").change_version()
   end
 end, { desc = "Change package version" })
-
--- Emmet expand abbreviation
-map("i", "<C-e>", "<plug>(emmet-expand-abbr)", { desc = "Emmet expand" })
-map("n", "<C-e>", "<plug>(emmet-expand-abbr)", { desc = "Emmet expand" })
