@@ -1,5 +1,3 @@
--- ~/.config/nvim/lua/custom/mappings.lua
-
 -- shorthand
 local map = vim.keymap.set
 
@@ -19,8 +17,14 @@ map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "LSP code acti
 -- Quick-save with Ctrl-S in normal, insert & visual modes
 map({ "n", "i", "v" }, "<C-s>", "<cmd>w<cr>", { desc = "Save file" })
 
--- In insert mode, Ctrl-A → start of line; Ctrl-E → end of line
-map("i", "<C-a>", "<C-o>^", { desc = "Insert: jump to first non-blank" })
+-- insert-mode Ctrl+H/J/K/L → move cursor
+map("i", "<C-h>", "<Left>",  { desc = "Move left"  })
+map("i", "<C-j>", "<Down>",  { desc = "Move down"  })
+map("i", "<C-k>", "<Up>",    { desc = "Move up"    })
+map("i", "<C-l>", "<Right>", { desc = "Move right" })
+
+-- In insert mode, Ctrl-Q → start of line; Ctrl-E → end of line
+map("i", "<C-q>", "<C-o>^", { desc = "Insert: jump to first non-blank" })
 map("i", "<C-e>", "<C-o>$", { desc = "Insert: jump to end of line" })
 
 -- Undo with Ctrl-Z
@@ -44,7 +48,14 @@ end, { expr = true, desc = "Redo" })
 
 -- Toggle native LSP inlay hints (Neovim ≥0.10 / 0.11+)
 map("n", "<leader>ih", function()
-  local bufnr   = vim.api.nvim_get_current_buf()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local filetype = vim.bo[bufnr].filetype
+  
+  -- Skip toggle for Rust files (handled by rustaceanvim)
+  if filetype == "rust" then
+    return
+  end
+  
   -- check if hints are currently enabled for this buffer
   local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
   -- flip the state
@@ -55,7 +66,7 @@ end, { desc = "Toggle inlay hints" })
 map("n", "<leader>gr", function()
   require("telescope.builtin").lsp_references({
     prompt_title = "LSP References",
-    include_declaration = false,   -- omit the declaration itself if you want
+    include_declaration = false, -- omit the declaration itself if you want
   })
 end, { desc = "Go to LSP References" })
 
@@ -65,21 +76,6 @@ end, { desc = "Go to LSP References" })
 map("n", "<leader>f", function()
   require("conform").format({ async = true, lsp_fallback = true })
 end, { desc = "Format document" })
-
--- C# specific keymaps
-map("n", "<leader>cu", function()
-  vim.lsp.buf.execute_command({
-    command = "omnisharp/findusages",
-    arguments = { vim.uri_from_bufnr(0), vim.lsp.util.make_position_params().position }
-  })
-end, { desc = "C# Find Usages" })
-
-map("n", "<leader>cR", function()
-  vim.lsp.buf.execute_command({
-    command = "omnisharp/rename",
-    arguments = { vim.uri_from_bufnr(0), vim.lsp.util.make_position_params().position }
-  })
-end, { desc = "C# Rename" })
 
 -- Package.json version management (if package-info is loaded)
 map("n", "<leader>ns", function()

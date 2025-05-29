@@ -21,35 +21,21 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
--- Auto-enable inlay hints for all LSP-attached buffers
+-- Auto-enable inlay hints for all LSP-attached buffers (except Rust, handled by rustaceanvim)
 local inlay_hint_group = vim.api.nvim_create_augroup("LspInlayHints", {})
 vim.api.nvim_create_autocmd("LspAttach", {
   group = inlay_hint_group,
   callback = function(args)
-    if vim.lsp.inlay_hint then
-      vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+    local client = vim.lsp.get_client_by_id(args.data.client_id)
+    -- Skip rust-analyzer as it's handled by rustaceanvim
+    if client and client.name ~= "rust_analyzer" then
+      vim.defer_fn(function()
+        if vim.lsp.inlay_hint and vim.api.nvim_buf_is_valid(args.buf) then
+          pcall(vim.lsp.inlay_hint.enable, true, { bufnr = args.buf })
+        end
+      end, 100)
     end
   end,
-})
-
--- Rust language server
-lspconfig.rust_analyzer.setup({
-  on_attach = on_attach,
-  capabilities = capabilities,
-  settings = {
-    ["rust-analyzer"] = {
-      cargo = { allFeatures = true },
-      checkOnSave = { command = "clippy" },
-      diagnostics = { enable = true },
-      inlayHints = {
-        bindingModeHints = { enable = true },
-        closureReturnTypeHints = { enable = true },
-        lifetimeElisionHints = { enable = "skip_trivial" },
-        parameterHints = { enable = true },
-        typeHints = { enable = true },
-      },
-    },
-  },
 })
 
 -- C# / OmniSharp configuration

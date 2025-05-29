@@ -5,7 +5,7 @@ return {
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
         -- Rust
-        "rust-analyzer",
+        -- "rust-analyzer",
         
         -- C# / .NET
         -- "omnisharp",            -- C# LSP server
