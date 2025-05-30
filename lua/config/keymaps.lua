@@ -113,3 +113,138 @@ map("n", "<leader>np", function()
     require("package-info").change_version()
   end
 end, { desc = "Change package version" })
+
+-- Rust development specific keymaps ----------------------------------------
+-- These will only work when rustaceanvim is loaded and in Rust files
+
+map("n", "<leader>rr", function()
+  if vim.fn.exists(':RustLsp') == 2 then
+    vim.cmd.RustLsp('run')
+  end
+end, { desc = "Rust: Run current target" })
+
+map("n", "<leader>rd", function()
+  if vim.fn.exists(':RustLsp') == 2 then
+    vim.cmd.RustLsp('debuggables')
+  end
+end, { desc = "Rust: Debug current target" })
+
+map("n", "<leader>rt", function()
+  if vim.fn.exists(':RustLsp') == 2 then
+    vim.cmd.RustLsp('testables')
+  end
+end, { desc = "Rust: Run tests" })
+
+map("n", "<leader>re", function()
+  if vim.fn.exists(':RustLsp') == 2 then
+    vim.cmd.RustLsp('explainError')
+  end
+end, { desc = "Rust: Explain error" })
+
+map("n", "<leader>rm", function()
+  if vim.fn.exists(':RustLsp') == 2 then
+    vim.cmd.RustLsp('expandMacro')
+  end
+end, { desc = "Rust: Expand macro" })
+
+map("n", "<leader>rc", function()
+  if vim.fn.exists(':RustLsp') == 2 then
+    vim.cmd.RustLsp('openCargo')
+  end
+end, { desc = "Rust: Open Cargo.toml" })
+
+map("n", "<leader>rp", function()
+  if vim.fn.exists(':RustLsp') == 2 then
+    vim.cmd.RustLsp('parentModule')
+  end
+end, { desc = "Rust: Go to parent module" })
+
+map("n", "<leader>rj", function()
+  if vim.fn.exists(':RustLsp') == 2 then
+    vim.cmd.RustLsp('joinLines')
+  end
+end, { desc = "Rust: Join lines" })
+
+map("n", "<leader>ra", function()
+  if vim.fn.exists(':RustLsp') == 2 then
+    vim.cmd.RustLsp('codeAction')
+  end
+end, { desc = "Rust: Code actions" })
+
+-- Toggle inlay hints specifically for Rust
+map("n", "<leader>rh", function()
+  local bufnr = vim.api.nvim_get_current_buf()
+  local filetype = vim.bo[bufnr].filetype
+  
+  if filetype == "rust" then
+    local enabled = vim.lsp.inlay_hint.is_enabled({ bufnr = bufnr })
+    vim.lsp.inlay_hint.enable(not enabled, { bufnr = bufnr })
+  end
+end, { desc = "Rust: Toggle inlay hints" })
+
+-- Crates.nvim keymaps for Cargo.toml
+map("n", "<leader>ct", function()
+  if pcall(require, "crates") then
+    require("crates").toggle()
+  end
+end, { desc = "Crates: Toggle" })
+
+map("n", "<leader>cr", function()
+  if pcall(require, "crates") then
+    require("crates").reload()
+  end
+end, { desc = "Crates: Reload" })
+
+map("n", "<leader>cv", function()
+  if pcall(require, "crates") then
+    require("crates").show_versions_popup()
+  end
+end, { desc = "Crates: Show versions" })
+
+map("n", "<leader>cf", function()
+  if pcall(require, "crates") then
+    require("crates").show_features_popup()
+  end
+end, { desc = "Crates: Show features" })
+
+map("n", "<leader>cd", function()
+  if pcall(require, "crates") then
+    require("crates").show_dependencies_popup()
+  end
+end, { desc = "Crates: Show dependencies" })
+
+map("n", "<leader>cu", function()
+  if pcall(require, "crates") then
+    require("crates").update_crate()
+  end
+end, { desc = "Crates: Update crate" })
+
+map("v", "<leader>cu", function()
+  if pcall(require, "crates") then
+    require("crates").update_crates()
+  end
+end, { desc = "Crates: Update selected crates" })
+
+map("n", "<leader>ca", function()
+  if pcall(require, "crates") then
+    require("crates").update_all_crates()
+  end
+end, { desc = "Crates: Update all crates" })
+
+map("n", "<leader>cU", function()
+  if pcall(require, "crates") then
+    require("crates").upgrade_crate()
+  end
+end, { desc = "Crates: Upgrade crate" })
+
+map("v", "<leader>cU", function()
+  if pcall(require, "crates") then
+    require("crates").upgrade_crates()
+  end
+end, { desc = "Crates: Upgrade selected crates" })
+
+map("n", "<leader>cA", function()
+  if pcall(require, "crates") then
+    require("crates").upgrade_all_crates()
+  end
+end, { desc = "Crates: Upgrade all crates" })

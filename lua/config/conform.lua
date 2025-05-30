@@ -2,6 +2,9 @@ local options = {
   formatters_by_ft = {
     lua = { "stylua" },
     
+    -- Rust
+    rust = { "rustfmt" },
+    
     -- C# / .NET
     cs = { "csharpier" },
     
