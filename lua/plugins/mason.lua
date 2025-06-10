@@ -4,6 +4,17 @@ return {
     opts = function(_, opts)
       opts.ensure_installed = opts.ensure_installed or {}
       vim.list_extend(opts.ensure_installed, {
+        -- Go
+        "gopls",                -- Go language server
+        "goimports",            -- Go import organizer and formatter
+        "gofumpt",              -- Stricter gofmt
+        "golines",              -- Go line length formatter
+        "golangci-lint",        -- Go linter
+        "delve",                -- Go debugger
+        "gotests",              -- Go test generator
+        "gomodifytags",         -- Go struct tag modifier
+        "impl",                 -- Go interface implementation generator
+        
         -- Rust
         -- "rust-analyzer",
         
