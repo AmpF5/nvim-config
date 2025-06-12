@@ -49,7 +49,25 @@ return {
   },
   {
     "neovim/nvim-lspconfig",
-    opts = {}
+    opts = function()
+    local Keys = require("lazyvim.plugins.lsp.keymaps").get()
+    -- stylua: ignore
+    vim.list_extend(Keys, {
+      { "gI", "<cmd>FzfLua lsp_implementations jump1=true ignore_current_line=true<cr>", desc = "Goto Implementation" },
+      { "gd", "<cmd>FzfLua lsp_definitions jump1=true ignore_current_line=true<cr>", desc = "Goto Definition" },
+      { "gr", "<cmd>FzfLua lsp_references jump1=true ignore_current_line=true<cr>", desc = "References" },
+      { "gy", "<cmd>FzfLua lsp_typedefs jump1=true ignore_current_line=true<cr>", desc = "Goto T[y]pe Definition" },
+    })
+  end,
+  },
+  {
+    "folke/todo-comments.nvim",
+    optional = true,
+    -- stylua: ignore
+    keys = {
+      { "<leader>st", function() require("todo-comments.fzf").todo() end, desc = "Todo" },
+      { "<leader>sT", function () require("todo-comments.fzf").todo({ keywords = { "TODO", "FIX", "FIXME" } }) end, desc = "Todo/Fix/Fixme" },
+    },
   },
   {
     "WhoIsSethDaniel/mason-tool-installer.nvim",

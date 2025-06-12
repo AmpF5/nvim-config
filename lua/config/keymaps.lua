@@ -63,12 +63,12 @@ map("n", "<leader>ih", function()
 end, { desc = "Toggle inlay hints" })
 
 -- Toggle LSP references with telescope
-map("n", "<leader>gr", function()
-  require("telescope.builtin").lsp_references({
-    prompt_title = "LSP References",
-    include_declaration = false, -- omit the declaration itself if you want
-  })
-end, { desc = "Go to LSP References" })
+-- map("n", "<leader>gr", function()
+--   require("telescope.builtin").lsp_references({
+--     prompt_title = "LSP References",
+--     include_declaration = false, -- omit the declaration itself if you want
+--   })
+-- end, { desc = "Go to LSP References" })
 
 -- Web development specific keymaps ----------------------------------------
 

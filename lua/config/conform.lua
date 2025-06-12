@@ -19,6 +19,9 @@ local options = {
     
     -- Razor (Blazor)
     razor = { "prettier" },
+
+    -- Go
+    go = { "gofmt", "goimports", stop_after_first = true },
   },
 
   -- Enable format on save
