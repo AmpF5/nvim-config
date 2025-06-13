@@ -23,7 +23,6 @@ return {
         lsp_keymaps = true,
         lsp_codelens = true,
         dap_debug = true,
-      })
-    end,
+      })z
   },
 }
